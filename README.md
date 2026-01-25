@@ -1,5 +1,5 @@
 # Basic-Login-and-Registration-Program
-Allows the user to create an account with a username and pass and login.
+Allows the user to create an account with a username and password. The user can also login using their username and password.
 
 Features to be added:
 - Security Questions
