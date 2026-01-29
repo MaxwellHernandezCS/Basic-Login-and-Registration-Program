@@ -125,9 +125,24 @@ void registration() {
 
     std::cout << "\nRegistration chosen! Please enter your username and password. You will also be asked to enter a security question and answer." << std::endl;
     std::cout << "Username:";
-    std::cin >> username;
+    std::getline(std::cin, username);
+
+    // Username input protection
+    while (username.find(',') != std::string::npos || username.find(' ') != std::string::npos) {
+        std::cout << "\nUsername cannot contain a comma or a space, please try again." << std::endl;
+        std::cout << "Username:";
+        std::getline(std::cin, username);
+    }
+
     std::cout << "Password:";
-    std::cin >> password;
+    std::getline(std::cin, password);
+
+    // Password input protection
+    while (password.find(',') != std::string::npos) {
+        std::cout << "\nPassword cannot contain a comma, please try again" << std::endl;
+        std::cout << "Password:";
+        std::getline(std::cin, password);
+    }
 
     std::cout << "\nWhich security question would you like to use?";
     std::cout << "\n1. What is your mother's maiden name?";
@@ -135,8 +150,13 @@ void registration() {
     std::cout << "\n3. What was your childhood nickname?";
     int security_question = isNumber(1,3);
 
-    std::cout << "\nInput security question answer (case sensitive):";
+    std::cout << "\nSecurity question answer (case sensitive):";
     std::getline(std::cin, security_answer);
+    while (security_answer.find(',') != std::string::npos) {
+        std::cout << "\nSecurity answer cannot contain a comma, please try again" << std::endl;
+        std::cout << "Security question answer (case sensitive):";
+        std::getline(std::cin, security_answer);
+    }
 
     // Check if data file opens
     std::fstream outputFile(fileName, std::ios::app);
