@@ -152,6 +152,8 @@ void registration() {
 
     std::cout << "\nSecurity question answer (case sensitive):";
     std::getline(std::cin, security_answer);
+
+    // Security answer input protection
     while (security_answer.find(',') != std::string::npos) {
         std::cout << "\nSecurity answer cannot contain a comma, please try again" << std::endl;
         std::cout << "Security question answer (case sensitive):";
@@ -161,11 +163,10 @@ void registration() {
     // Check if data file opens
     std::fstream outputFile(fileName, std::ios::app);
     if (!outputFile.is_open()){
-        std::cout << "Error opening data file!";
+        std::cout << "Error opening data file! User could not be successfully registered.";
+    } else { // Import data into file
+        outputFile << username << "," << password << "," << security_question << "," << security_answer << "\n";
+        outputFile.close();
+        std::cout << "\nSuccessfully registered!" << std::endl;
     }
-
-    // Import data into file
-    outputFile << username << "," << password << "," << security_question << "," << security_answer << "\n";
-    outputFile.close();
-    std::cout << "\nSuccessfully registered!" << std::endl;
 }
