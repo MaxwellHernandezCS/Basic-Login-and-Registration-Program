@@ -84,25 +84,9 @@ void login(){
         // Move reading pointer to start of file
         readFile.clear();
         readFile.seekp(0);
-        std::string line;
-
+        std::string tempUser, tempPass, tempSecNum, tempSecAnswer;
         // While loop to go through data to check for username and password match
-        while (std::getline(readFile, line)){
-            // Temporary strings to store read data
-            std::string tempUser, tempPass, token, tempSecNum, tempSecAnswer;
-
-            // sstream to allow data to be read as tokens
-            std::stringstream ss(line);
-
-            // Read each token up the comma and store it temporarily
-            std::getline(ss, tempUser, ',');
-            std::getline(ss, tempPass, ',');
-            std::getline(ss, token, ',');
-            std::getline(ss, tempSecAnswer, ',');
-
-            // Convert string 'token' to integer
-            tempSecNum = std::stoi(token);
-
+        while (readFile >> tempUser >> tempPass >> tempSecNum >> tempSecAnswer){
             // Check if password and username match, if true close file and end outer loop
             if (username == tempUser && password == tempPass){
                 std::cout << "\nLogin success!\n" << std::endl;
@@ -165,7 +149,7 @@ void registration() {
     if (!outputFile.is_open()){
         std::cout << "Error opening data file! User could not be successfully registered.";
     } else { // Import data into file
-        outputFile << username << "," << password << "," << security_question << "," << security_answer << "\n";
+        outputFile << username << " " << password << " " << security_question << " " << security_answer << "\n";
         outputFile.close();
         std::cout << "\nSuccessfully registered!" << std::endl;
     }
